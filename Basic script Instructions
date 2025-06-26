@@ -18,7 +18,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "example" {
-   ami              = "ami-06589678lm89
+   ami              = "ami-06589678lm89 #
    instance_type     = "t2.micro"
    subnet_id = "subnet-0198794814wewr"
    Key_name = "aws_login"
@@ -29,6 +29,7 @@ resource "aws_instance" "example" {
 terraform init 
 terrafor plan #dry run
 terraform apply 
+terraform destroy #####while practicing
 
 
 
