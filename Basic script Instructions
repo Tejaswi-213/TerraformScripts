@@ -1,0 +1,37 @@
+#writing the terraform code based on the requirement 
+#harshicorp templating language
+#universal approach to create the resources
+#similar tools like terraform are pulumi, bicep, crossplane etc
+
+Terraform --version
+#Use IAM user to get access ID or to fetch the information #Do not use root user
+
+aws configure #first command to see the aws confugured to the terraform
+#ENTER YOU ACCESS KEY ID AND SECRET ACESS
+#to list what s3 buckets you have
+########################### below is the command to see the s3 buckets thata r epresent in the AWS  ###############################################################
+aws s3 ls
+##################################create main.tf##################################################################################
+#here the provider can be changes like aws or azure or GCP
+provider "aws" {                   
+    region = "us-east-1" #region can be changed here
+}
+
+resource "aws_instance" "example" {
+   ami              = "ami-06589678lm89
+   instance_type     = "t2.micro"
+   subnet_id = "subnet-0198794814wewr"
+   Key_name = "aws_login"
+}
+
+################################################## commands to run on to cretae  infrastructure ############################################
+#########to initialize#############
+terraform init 
+terrafor plan #dry run
+terraform apply 
+
+
+
+
+
+
