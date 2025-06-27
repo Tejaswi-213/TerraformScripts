@@ -1,0 +1,94 @@
+#providers what is the importnce of this #
+#####################if you you don't provide provider at the initial of th script how can the resource be created on the cloud###########
+#if you want to configure for a different cloud provider then you can go to terraform.in doucmentation to know more about this##
+# if you have to use multi region or create infrastructure on hybrid cloud how? ##
+# you write something like ##
+
+provider "aws" {
+  alias = "us-east-1" # this alias can be anything no need to be just the region it can be anything
+  region = "us-east-1"
+}
+provider "aws" {
+  alias = "us-west-2" # this alias can be anything no need to be just the region it can be anything
+  region = "us-west-2"
+}
+resource "aws_instance" "example-123" {
+   ami = "ami-0256486745754"
+   instance_type = "t2_micro"
+   provider = "us-east-1" #here you have to give the alias name so that while creating the resource it is going to look for the alias
+}
+resource "aws_instance" {
+   ami = "ami-0123654778945"
+   instance_type = "t2_micro"
+   provider = "us-west-2" #here you have to give the alias name so that while creating the resource it is going to look for the alias
+}
+   
+# now hybrid providers how do we write the scripts ##
+# azure have the different service principle or mechanish so we need to provide all the id's like below
+
+provider "aws" {
+   region = "us-east-1"
+}
+
+provider "azurerm" {
+  subscription_id = "your-azure-client-id"
+  client_id = "your-azure-client-id"
+  client_secret = "your-azure-client-secret"
+  tenant_id = "your-azure-tenant-id"
+}
+
+#now how to create the resources on hybrid cloud
+resource "aws_instance" "example" {
+   ami = "ami-45674wd4654"
+   instance_type = "t2.micro"
+}
+
+resource "azurerm_virtual_machine" "example" {
+   name = "example-vm"
+   location = "eastus"
+   size = "Standard_A1"
+}
+
+#please learn the requirements in the creation no needs of id's we can follow the documentation
+############Now we start with variables##########
+# variables are helpful with out hardcoding the values in the script ##
+#2 tyes of variables input variables and output variables#
+variable.tf
+
+variable "instance_type" {
+   description = "EC2 instance type" # you can avoid description if you want not mandatory thing
+   type        = string # very important
+   default     = "t2.micro"
+}
+
+#define ami id here
+variable "ami_id {
+  description = "EC2 AMI ID"
+  type        =  string
+}
+
+# Configure the AWS provder using the input variables
+provider "aws" {
+  region       = "us-east-1"
+}
+
+# creating ec2 now using variables##
+resource "aws_instance_id" "example" {
+  ami           = var.ami_id
+  instance_type = var.instance_type
+}
+
+# we are looking for the output as well example like public ip
+output "public_ip"
+  description = "Public IP address of the EC2 instance"
+  value       = aws_instance.example_instance.public_ip
+
+# tf vars is used to put the value 
+
+
+
+
+
+
+
+  
